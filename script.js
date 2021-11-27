@@ -1,4 +1,3 @@
-//const code = "3333";
 let card1 = {
   number: 55322,
   bank: "My bank",
@@ -21,34 +20,62 @@ let card3 = {
   number: 55323,
   bank: "My bank",
   name: "Петя",
-  surname: "Иванов",
+  surname: "Васин",
   code: 1111,
   account: 2000,
 };
 
 let bank = [card1, card2];
-
 let cashMashine3 = {
   number: 3,
   showBalance: function (card) {
     console.log(card.account);
   },
 
-  getMoney: function (card, sum) {
-    if (this.checkAccount() == true) {
+  getMoney: function (card,code,sum) {
+    if (this.checkAccount(card,code)== true && this.checkBankAccount(card,code)== true) {
       this.showBalance(card);
-      console.log(card.account - sum);
-    } else {
-      alert("error");
+      console.log(sum);
+      card.account-=sum
+      console.log(card.account);
+    }else{
+      alert("error")
     }
   },
-  checkAccount: function (card) {
-    for (key in card) {
-      if ((card[key] = card1[code]) || (card[key] = card2[code])) {
-        return true;
-      }
+  giveMoney: function (card,code,sum) {
+    if (this.checkAccount(card,code)== true && this.checkBankAccount(card,code)== true) {
+      this.showBalance(card);
+      console.log(sum);
+      card.account=+ card.account + +sum
+      console.log(card.account);
+    }else{
+      alert("error")
     }
+  },
+
+  checkAccount: function (card,code) {
+    if (card.code==code){
+    return true;
+    }else {
+   
+      return false;
+    }
+  },
+  checkBankAccount: function (card, code) {
+    for (let i = 0; i < bank.length; i++) {
+      let verify = true;
+      for (const key in bank[i]) {
+        const element1 = bank[i][key];
+        console.log(element1);
+
+        if (bank[i][key] !== card[key]) {
+
+          break;
+        }
+
+      }
+      if (verify) return true;
+    }
+    return false;
   },
 };
-let sum = prompt("input sum");
-cashMashine3.getMoney(card3, sum);
